@@ -29,15 +29,15 @@ XCTAssert(oldString == newString)
     let sectionIndex: Int
     let rowAnimation: UITableView.RowAnimation
 
-    mutating func applyDeletion(at index: Int) {
+    func applyDeletion(at index: Int) {
         tableView.deleteRows(at: [IndexPath(row: index, section: sectionIndex)], with: rowAnimation)
     }
 
-    mutating func applyInsertion(_ element: T, at index: Int) {
+    func applyInsertion(_ element: T, at index: Int) {
         tableView.insertRows(at: [IndexPath(row: index, section: sectionIndex)], with: rowAnimation)
     }
 
-    mutating func applyUpdateOrMove(
+    func applyUpdateOrMove(
         _ oldElement: T,
         at oldIndex: Int,
         to newElement: T,
