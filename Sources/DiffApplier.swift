@@ -27,7 +27,7 @@ public protocol DiffChangesApplier : DiffApplier {
 }
 
 public extension DiffChangesApplier {
-    @_inlineable
+    @inlinable
     mutating func applyDiff<C>(with context: DiffContext<C>) where C.Index == Index, C.Element == Element {
         var deleteOffsets = ContiguousArray<Int>()
         deleteOffsets.reserveCapacity(context.OA.count)

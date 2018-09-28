@@ -30,7 +30,7 @@ public struct DiffContext<C : Collection> where C.Element : Hashable {
      - parameter source: The array to calculate from.
      - parameter destination: The array to calculate to.
      */
-    @_inlineable
+    @inlinable
     public init(from source: C, to destination: C) {
         self.O = source
         self.N = destination
@@ -38,7 +38,7 @@ public struct DiffContext<C : Collection> where C.Element : Hashable {
         calculate()
     }
     
-    @_inlineable
+    @inlinable
     public mutating func update(with newDestination: C) {
         O = N
         N = newDestination
@@ -50,7 +50,7 @@ public struct DiffContext<C : Collection> where C.Element : Hashable {
         calculate()
     }
     
-    @_versioned
+    @usableFromInline
     mutating func calculate() {
         // First pass
         for element in N {

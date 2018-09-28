@@ -12,7 +12,7 @@ public struct OrderedDiffResult<Index, Element> where Index : Comparable, Elemen
         case delete(at: Index)
         case update(Element, at: Index)
         
-        @_inlineable
+        @inlinable
         public var description: String {
             switch self {
             case .insert(let element, at: let index): return "+\(element)@\(index)"
@@ -24,17 +24,17 @@ public struct OrderedDiffResult<Index, Element> where Index : Comparable, Elemen
     
     public var steps: ContiguousArray<Step>
     
-    @_inlineable
+    @inlinable
     public init(steps: ContiguousArray<Step> = []) {
         self.steps = steps
     }
     
-    @_inlineable
+    @inlinable
     public init<Steps : Sequence>(steps: Steps) where Steps.Element == Step {
         self.steps = ContiguousArray(steps)
     }
     
-    @_inlineable
+    @inlinable
     public init(_ builder: Builder) {
         var deletions = ContiguousArray<Step>()
         deletions.reserveCapacity(builder.deletionIndices.count)
@@ -55,24 +55,24 @@ public struct OrderedDiffResult<Index, Element> where Index : Comparable, Elemen
 
 public extension OrderedDiffResult {
     struct Builder : DiffChangesApplier {
-        @_versioned
+        @usableFromInline
         var updates = ContiguousArray<OrderedDiffResult<Index, Element>.Step>()
-        @_versioned
+        @usableFromInline
         var insertions = ContiguousArray<OrderedDiffResult<Index, Element>.Step>()
-        @_versioned
+        @usableFromInline
         var deletionIndices = ContiguousArray<Index>()
         
-        @_inlineable
+        @inlinable
         public mutating func applyInsertion(_ element: Element, at index: Index) {
             insertions.append(.insert(element, at: index))
         }
         
-        @_inlineable
+        @inlinable
         public mutating func applyDeletion(at index: Index) {
             deletionIndices.append(index)
         }
         
-        @_inlineable
+        @inlinable
         public mutating func applyUpdateOrMove(
             _ oldElement: Element,
             at oldIndex: Index,
@@ -92,7 +92,7 @@ public extension OrderedDiffResult {
 }
 
 extension OrderedDiffResult {
-    @_inlineable
+    @inlinable
     public func apply<Subject : RangeReplaceableCollection & MutableCollection>(
         to subject: inout Subject
     ) where Subject.Index == Index, Subject.Element == Element {
@@ -108,7 +108,7 @@ extension OrderedDiffResult {
         }
     }
     
-    @_inlineable
+    @inlinable
     public func apply<Subject : RangeReplaceableCollection>(
         to subject: inout Subject
     ) where Subject.Index == Index, Subject.Element == Element {

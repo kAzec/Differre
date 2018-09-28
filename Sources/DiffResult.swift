@@ -19,7 +19,7 @@ public struct DiffResult<Index, Element> where Index : Hashable & Comparable, El
     /// Moves from old indices to new indices.
     public let moves: [(Index, Index)]
     
-    @_inlineable
+    @inlinable
     public init(
         insertions: [(Index, Element)] = [],
         deletions: [Index] = [],
@@ -32,7 +32,7 @@ public struct DiffResult<Index, Element> where Index : Hashable & Comparable, El
         self.moves = moves
     }
     
-    @_inlineable
+    @inlinable
     public init(_ builder: Builder) {
         self.init(
             insertions: builder.insertions,
@@ -51,13 +51,13 @@ public struct DiffResult<Index, Element> where Index : Hashable & Comparable, El
 
 public extension DiffResult {
     struct Builder : DiffChangesApplier {
-        @_versioned
+        @usableFromInline
         var insertions = [(Index, Element)]()
-        @_versioned
+        @usableFromInline
         var deletions = [Index]()
-        @_versioned
+        @usableFromInline
         var updates = [(Index, Element)]()
-        @_versioned
+        @usableFromInline
         var moves = [(Index, Index)]()
         
         public mutating func applyInsertion(_ element: Element, at index: Index) {
